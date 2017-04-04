@@ -9,17 +9,12 @@ public class Float4 implements IStorage<Float4>
 	private float z;
 	private float w;
 	
-	private static float norm;
-	private static Float4 normalisedStorage;
-	
 	public Float4(float x, float y, float z, float w)
 	{
 		this.x = x;
 		this.y = y;
 		this.z = z;
 		this.w = w;
-		
-		resetNorms();
 	}
 	
 	public Float4(float value)
@@ -28,8 +23,6 @@ public class Float4 implements IStorage<Float4>
 		y = value;
 		z = value;
 		w = value;
-		
-		resetNorms();
 	}
 	
 	@Override
@@ -56,8 +49,6 @@ public class Float4 implements IStorage<Float4>
 		y = y/scalar;
 		z = z/scalar;
 		w = w/scalar;
-		
-		resetNorms();
 	}
 
 	@Override
@@ -86,8 +77,6 @@ public class Float4 implements IStorage<Float4>
 		y = y-storage.y; 
 		z = z-storage.z; 
 		w = w-storage.w;
-		
-		resetNorms();
 	}
 
 	@Override
@@ -117,24 +106,6 @@ public class Float4 implements IStorage<Float4>
 		return dot(this);
 	}
 	
-	@Override
-	public float norm()
-	{
-		if (norm == -1.0f) {
-			norm = (float) Math.sqrt(normSquared());
-		} 
-		return norm;
-	}
-
-	@Override
-	public Float4 normalise()
-	{
-		if (normalisedStorage == null) {
-			normalisedStorage = div(norm());
-		}
-		return normalisedStorage;
-	}
-
 	@Override
 	public Float4 negate()
 	{
@@ -219,12 +190,6 @@ public class Float4 implements IStorage<Float4>
 		}
 	}
 	
-	private void resetNorms()
-	{
-		norm = -1.0f;
-		normalisedStorage = null;
-	}
-
 	@Override
 	public int getSize()
 	{

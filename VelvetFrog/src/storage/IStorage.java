@@ -14,8 +14,17 @@ public interface IStorage<T>
 	
 	public float dot(T storage);
 	public float normSquared();
-	public float norm(); //called also "length" in some other resources
-	public T normalise();
+	
+	default public float norm() //called also "length" in some other resources
+	{
+		return (float) Math.sqrt(normSquared());
+	}
+	
+	default public T normalise()
+	{
+		return div(norm());
+	}
+	
 	public T negate();
 	public float sum();
 	

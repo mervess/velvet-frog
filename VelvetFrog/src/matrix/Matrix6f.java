@@ -25,15 +25,11 @@ public class Matrix6f implements IMatrix<Matrix6f>
 				 m40, m41, m42, m43, m44, m45,
 				 m50, m51, m52, m53, m54, m55;
 	
-	private static float norm;
-	
 	/**
 	 * Constructs a 6x6 identity matrix in default.
 	 */
 	public Matrix6f()
 	{
-		resetNorm();
-		
 		m00 = 1.0f;
 		m01 = 0.0f;
 		m02 = 0.0f;
@@ -77,7 +73,6 @@ public class Matrix6f implements IMatrix<Matrix6f>
 	 */
 	public Matrix6f(float scalar)
 	{
-		resetNorm();
 		set(scalar);
 	}
 	
@@ -88,8 +83,6 @@ public class Matrix6f implements IMatrix<Matrix6f>
 					float m40, float m41, float m42, float m43, float m44, float m45,
 					float m50, float m51, float m52, float m53, float m54, float m55)
 	{
-		resetNorm();
-		
 		this.m00 = m00;
 		this.m01 = m01;
 		this.m02 = m02;
@@ -130,7 +123,6 @@ public class Matrix6f implements IMatrix<Matrix6f>
 	
 	public Matrix6f(float[] array)
 	{
-		resetNorm();
 		int index = 0;
 		
 		m00 = array[index++];
@@ -173,7 +165,6 @@ public class Matrix6f implements IMatrix<Matrix6f>
 	
 	public Matrix6f (double[][] array)
 	{
-		resetNorm();
 		int i = 0, j = 0;
 		
 		m00 = (float)array[i][j++];
@@ -233,8 +224,6 @@ public class Matrix6f implements IMatrix<Matrix6f>
 	
 	public Matrix6f divI(float scalar)
 	{
-		resetNorm();;
-		
 		m00 /= scalar;
 		m01 /= scalar;
 		m02 /= scalar;
@@ -288,8 +277,6 @@ public class Matrix6f implements IMatrix<Matrix6f>
 	
 	public Matrix6f multI(float scalar)
 	{
-		resetNorm();
-		
 		m00 *= scalar;
 		m01 *= scalar;
 		m02 *= scalar;
@@ -343,8 +330,6 @@ public class Matrix6f implements IMatrix<Matrix6f>
 	
 	public Matrix6f addI(Matrix6f matrix)
 	{
-		resetNorm();
-		
 		m00 += matrix.m00;
 		m01 += matrix.m01;
 		m02 += matrix.m02;
@@ -417,15 +402,6 @@ public class Matrix6f implements IMatrix<Matrix6f>
 			   (m30*m30) + (m31*m31) + (m32*m32) + (m33*m33) + (m34*m34) + (m35*m35) +
 			   (m40*m40) + (m41*m41) + (m42*m42) + (m43*m43) + (m44*m44) + (m45*m45) +
 			   (m50*m50) + (m51*m51) + (m52*m52) + (m53*m53) + (m54*m54) + (m55*m55);
-	}
-
-	@Override
-	public float norm()
-	{
-		if (-1.0f == norm) {
-			norm = (float) Math.sqrt(normSquared());
-		}
-		return norm;
 	}
 
 	@Override
@@ -546,7 +522,6 @@ public class Matrix6f implements IMatrix<Matrix6f>
 	@Override
 	public Matrix6f set(int index, float value)
 	{
-		resetNorm();
 		switch (index) {
 			case 0:
 				m00 = value;
@@ -665,14 +640,12 @@ public class Matrix6f implements IMatrix<Matrix6f>
 	@Override
 	public Matrix6f set(int row, int col, float value)
 	{
-		resetNorm();
 		set(row * 6 + col, value);
 		return this;
 	}
 	
 	public Matrix6f set(int row, int col, Matrix3f mat)
 	{
-		resetNorm();
 		// TODO bu kisim tam degil
 		switch (row) {
 	        case 0:
@@ -923,11 +896,6 @@ public class Matrix6f implements IMatrix<Matrix6f>
 		return 6;
 	}
 	
-	private void resetNorm()
-	{
-		norm = -1.0f;
-	}
-	
 	public MatrixXf toMatrixXf()
 	{
 		return new MatrixXf(6, 6, new float[]{
@@ -975,7 +943,6 @@ public class Matrix6f implements IMatrix<Matrix6f>
 	
 	public void clear()
 	{
-		resetNorm();
 		set(0.0f);
 	}
 

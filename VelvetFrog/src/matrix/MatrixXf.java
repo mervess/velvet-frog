@@ -10,15 +10,12 @@ public class MatrixXf implements IMatrix<MatrixXf>
 	private final float[] data;
 	private final int rowCount, colCount, numElements;
 	
-	private static float norm;
-	
 	public MatrixXf(int rowCount, int colCount)
 	{
 		this.rowCount = rowCount;
 		this.colCount = colCount;
 		numElements = rowCount*colCount;
 		data = new float[numElements];
-		norm = -1.0f;
 	}
 	
 	public MatrixXf(int rowCount, int colCount, float[] data)
@@ -27,7 +24,6 @@ public class MatrixXf implements IMatrix<MatrixXf>
 		this.colCount = colCount;
 		numElements = rowCount*colCount;
 		this.data = data;
-		norm = -1.0f;
 	}
 	
 	public static MatrixXf createIdentityMatrix(int rowCount, int colCount)
@@ -128,15 +124,6 @@ public class MatrixXf implements IMatrix<MatrixXf>
 	}
 
 	@Override
-	public float norm()
-	{
-		if (-1.0f == norm) {
-			norm = (float) Math.sqrt(normSquared());
-		}
-		return norm;
-	}
-
-	@Override
 	public float sum() 
 	{
 		float sum = 0.0f;
@@ -150,7 +137,6 @@ public class MatrixXf implements IMatrix<MatrixXf>
 	public MatrixXf set(int index, float value)
 	{
 		data[index] = value;
-		norm = -1.0f;
 		return this;
 	}
 
@@ -158,7 +144,6 @@ public class MatrixXf implements IMatrix<MatrixXf>
 	public MatrixXf set(int row, int col, float value)
 	{
 		data[row*colCount+col] = value;
-		norm = -1.0f;
 		return this;
 	}
 	

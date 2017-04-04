@@ -10,7 +10,12 @@ public interface IMatrix<T>
 	public T mult(T matrix);
 	
 	public float normSquared();
-	public float norm();
+	
+	default public float norm()
+	{
+		return (float) Math.sqrt(normSquared());
+	}
+	
 	public float sum();
 	
 	public T inverse();

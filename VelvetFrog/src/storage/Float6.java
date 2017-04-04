@@ -8,9 +8,6 @@ public class Float6 implements IStorage<Float6>
 {
 	private float f0, f1, f2, f3, f4, f5;
 
-	private static float norm;
-	private static Float6 normalisedStorage;
-
 	public Float6(Float3 first, Float3 second)
 	{
 		f0 = first.getX();
@@ -20,8 +17,6 @@ public class Float6 implements IStorage<Float6>
 		f3 = second.getX();
 		f4 = second.getY();
 		f5 = second.getZ();
-		
-		resetNorms();
 	}
 
 	public Float6(float value)
@@ -33,8 +28,6 @@ public class Float6 implements IStorage<Float6>
 		f3 = value;
 		f4 = value;
 		f5 = value;
-		
-		resetNorms();
 	}
 
 	public Float6(float f0, float f1, float f2, float f3, float f4, float f5)
@@ -46,8 +39,6 @@ public class Float6 implements IStorage<Float6>
 		this.f3 = f3;
 		this.f4 = f4;
 		this.f5 = f5;
-		
-		resetNorms();
 	}
 
 	@Override
@@ -74,14 +65,10 @@ public class Float6 implements IStorage<Float6>
 		f3 = f3-scalar; 
 		f4 = f4-scalar; 
 		f5 = f5-scalar;
-		
-		resetNorms();
 	}
 	
 	public Float6 subI(int index, float scalar)
 	{
-		resetNorms();
-		
 		switch (index) {
 			case 0:
 				f0 -= scalar;
@@ -125,14 +112,10 @@ public class Float6 implements IStorage<Float6>
 		f3 = f3/scalar; 
 		f4 = f4/scalar; 
 		f5 = f5/scalar;
-		
-		resetNorms();
 	}
 	
 	public Float6 divI(int index, float scalar)
 	{
-		resetNorms();
-		
 		switch (index) {
 			case 0:
 				f0 /= scalar;
@@ -190,8 +173,6 @@ public class Float6 implements IStorage<Float6>
 		f3 = f3-storage.f3; 
 		f4 = f4-storage.f4; 
 		f5 = f5-storage.f5;
-		
-		resetNorms();
 	}
 
 	@Override
@@ -219,24 +200,6 @@ public class Float6 implements IStorage<Float6>
 	public float normSquared()
 	{
 		return dot(this);
-	}
-
-	@Override
-	public float norm()
-	{
-		if (norm == -1.0f) {
-			norm = (float) Math.sqrt(normSquared());
-		} 
-		return norm;
-	}
-
-	@Override
-	public Float6 normalise()
-	{
-		if (normalisedStorage == null) {
-			normalisedStorage = div(norm());
-		}
-		return normalisedStorage;
 	}
 
 	@Override
@@ -413,12 +376,6 @@ public class Float6 implements IStorage<Float6>
 		return slice;
 	}
 	
-	private void resetNorms()
-	{
-		norm = -1.0f;
-		normalisedStorage = null;
-	}
-	
 	public void clear()
 	{
 		f0 = 0.0f;
@@ -428,8 +385,6 @@ public class Float6 implements IStorage<Float6>
 		f3 = 0.0f;
 		f4 = 0.0f;
 		f5 = 0.0f;
-		
-		resetNorms();
 	}
 
 	@Override

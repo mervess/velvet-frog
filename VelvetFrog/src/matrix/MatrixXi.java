@@ -5,15 +5,12 @@ public class MatrixXi
 	private final int[] data;
 	private final int rowCount, colCount, numElements;
 	
-	private static float norm;
-	
 	public MatrixXi(int rowCount, int colCount)
 	{
 		this.rowCount = rowCount;
 		this.colCount = colCount;
 		numElements = rowCount*colCount;
 		data = new int[numElements];
-		norm = -1.0f;
 	}
 	
 	public MatrixXi(int rowCount, int colCount, int[] data)
@@ -22,7 +19,6 @@ public class MatrixXi
 		this.colCount = colCount;
 		numElements = rowCount*colCount;
 		this.data = data;
-		norm = -1.0f;
 	}
 	
 

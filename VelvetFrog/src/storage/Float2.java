@@ -10,9 +10,6 @@ public class Float2 implements IStorage<Float2>
 	private float x;
 	private float y;
 	
-	private static float norm = -1.0f;
-	private static Float2 normalisedStorage = null;
-	
 	public Float2(float value)
 	{
 		this.x = value;
@@ -45,7 +42,6 @@ public class Float2 implements IStorage<Float2>
 	
 	public Float2 divI(float scalar)
 	{
-		resetNorm();
 		x /= scalar;
 		y /= scalar;
 		return this;
@@ -59,7 +55,6 @@ public class Float2 implements IStorage<Float2>
 	
 	public Float2 multI(float scalar)
 	{
-		resetNorm();
 		x *= scalar;
 		y *= scalar;
 		return this;
@@ -73,7 +68,6 @@ public class Float2 implements IStorage<Float2>
 	
 	public Float2 addI(Float2 storage)
 	{
-		resetNorm();
 		x += storage.x;
 		y += storage.y;
 		return this;
@@ -99,7 +93,6 @@ public class Float2 implements IStorage<Float2>
 	
 	public Float2 multI(Float2 storage)
 	{
-		resetNorm();
 		x *= storage.x;
 		y *= storage.y;
 		return this;
@@ -124,24 +117,6 @@ public class Float2 implements IStorage<Float2>
 		return dot(this);
 	}
 	
-	@Override
-	public float norm()
-	{
-		if (norm == -1.0f) {
-			norm = (float) Math.sqrt(normSquared());
-		} 
-		return norm;
-	}
-
-	@Override
-	public Float2 normalise()
-	{
-		if (normalisedStorage == null) {
-			normalisedStorage = div(norm());
-		}
-		return normalisedStorage;
-	}
-
 	@Override
 	public Float2 negate()
 	{
@@ -183,17 +158,10 @@ public class Float2 implements IStorage<Float2>
 		return 2;
 	}
 	
-	private void resetNorm()
-	{
-		norm = -1.0f;
-		normalisedStorage = null;
-	}
-	
 	public void clear()
 	{
 		x = 0.0f;
 		y = 0.0f;
-		resetNorm();
 	}
 	
 	@Override

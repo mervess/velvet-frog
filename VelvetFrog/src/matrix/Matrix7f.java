@@ -14,15 +14,11 @@ public class Matrix7f implements IMatrix<Matrix7f>
 				 m50, m51, m52, m53, m54, m55, m56,
 				 m60, m61, m62, m63, m64, m65, m66;
 	
-	private static float norm;
-	
 	/**
 	* Constructs a 7x7 identity matrix in default.
 	*/
 	public Matrix7f()
 	{
-		resetNorm();
-		
 		m00 = 1.0f;
 		m01 = 0.0f;
 		m02 = 0.0f;
@@ -76,7 +72,6 @@ public class Matrix7f implements IMatrix<Matrix7f>
 	
 	public Matrix7f(float scalar)
 	{
-		resetNorm();
 		set(scalar);
 	}
 	
@@ -89,8 +84,6 @@ public class Matrix7f implements IMatrix<Matrix7f>
 			 float m50, float m51, float m52, float m53, float m54, float m55, float m56,
 			 float m60, float m61, float m62, float m63, float m64, float m65, float m66)
 	{
-		resetNorm();
-		
 		this.m00 = m00;
 		this.m01 = m01;
 		this.m02 = m02;
@@ -144,7 +137,6 @@ public class Matrix7f implements IMatrix<Matrix7f>
 	
 	public Matrix7f(float[] array)
 	{
-		resetNorm();
 		int index = 0;
 		
 		m00 = array[index++];
@@ -200,7 +192,6 @@ public class Matrix7f implements IMatrix<Matrix7f>
 	
 	public Matrix7f (double[][] array)
 	{
-		resetNorm();
 		int i = 0, j = 0;
 		
 		m00 = (float)array[i][j++];
@@ -275,7 +266,6 @@ public class Matrix7f implements IMatrix<Matrix7f>
 	
 	public Matrix7f divI(float scalar)
 	{
-		resetNorm();
 		m00 /= scalar;
 		m01 /= scalar;
 		m02 /= scalar;
@@ -356,8 +346,6 @@ public class Matrix7f implements IMatrix<Matrix7f>
 	
 	public Matrix7f addI(int row, int col, float scalar)
 	{
-		resetNorm();
-		
 		switch (row) {
 	        case 0:
 	        	switch (col) {
@@ -590,15 +578,6 @@ public class Matrix7f implements IMatrix<Matrix7f>
 	}
 
 	@Override
-	public float norm()
-	{
-		if (-1.0f == norm) {
-			norm = (float) Math.sqrt(normSquared());
-		}
-		return norm;
-	}
-
-	@Override
 	public float sum()
 	{
 		return m00 + m01 + m02 + m03 + m04 + m05 + m06 +
@@ -683,7 +662,6 @@ public class Matrix7f implements IMatrix<Matrix7f>
 	@Override
 	public Matrix7f set(int index, float value)
 	{
-		resetNorm();
 		switch (index) {
 			case 0:
 				m00 = value;
@@ -853,7 +831,6 @@ public class Matrix7f implements IMatrix<Matrix7f>
 	
 	public Matrix7f set(int row, int col, Matrix3f mat)
 	{
-		resetNorm();
 		// TODO bu kisim tam degil
 		switch (row) {
 	        case 0:
@@ -907,7 +884,6 @@ public class Matrix7f implements IMatrix<Matrix7f>
 	
 	public Matrix7f set(int row, int col, Matrix6f mat)
 	{
-		resetNorm();
 		// TODO bu kisim tam degil
 		switch (row) {
 	        case 0:
@@ -1013,8 +989,6 @@ public class Matrix7f implements IMatrix<Matrix7f>
 
 	public void setColumn(int col, Float3 vector)
 	{
-		resetNorm();
-		
 		switch (col) {
 	        case 0:
 	        	m00 = vector.getX();
@@ -1255,11 +1229,6 @@ public class Matrix7f implements IMatrix<Matrix7f>
 		return 7;
 	}
 	
-	private void resetNorm()
-	{
-		norm = -1.0f;
-	}
-	
 	public MatrixXf toMatrixXf()
 	{
 		return new MatrixXf(7, 7, new float[]{
@@ -1311,7 +1280,6 @@ public class Matrix7f implements IMatrix<Matrix7f>
 	
 	public void clear()
 	{
-		resetNorm();
 		set(0.0f);
 	}
 

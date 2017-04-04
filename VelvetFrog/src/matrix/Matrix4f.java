@@ -24,15 +24,11 @@ public class Matrix4f implements IMatrix<Matrix4f>
 				 m20, m21, m22, m23,
 				 m30, m31, m32, m33;
 	
-	private static float norm;
-	
 	/**
 	 * Constructs a 4x4 identity matrix in default.
 	 */
 	public Matrix4f()
 	{
-		resetNorm();
-		
 		m00 = 1.0f;
 		m01 = 0.0f;
 		m02 = 0.0f;
@@ -53,8 +49,6 @@ public class Matrix4f implements IMatrix<Matrix4f>
 	
 	public Matrix4f(float scalar)
 	{
-		resetNorm();
-		
 		m00 = scalar;
 		m01 = scalar;
 		m02 = scalar;
@@ -78,8 +72,6 @@ public class Matrix4f implements IMatrix<Matrix4f>
 		            float m20, float m21, float m22, float m23,
 		            float m30, float m31, float m32, float m33)
     {
-		resetNorm();
-		
 		this.m00 = m00;
 		this.m01 = m01;
 		this.m02 = m02;
@@ -110,8 +102,6 @@ public class Matrix4f implements IMatrix<Matrix4f>
 	
 	public Matrix4f divI(float scalar)
 	{
-		resetNorm();
-		
 		m00 /= scalar;
 		m01 /= scalar;
 		m02 /= scalar;
@@ -143,8 +133,6 @@ public class Matrix4f implements IMatrix<Matrix4f>
 
 	public Matrix4f multI(float scalar)
 	{
-		resetNorm();
-		
 		m00 *= scalar;
 		m01 *= scalar;
 		m02 *= scalar;
@@ -176,8 +164,6 @@ public class Matrix4f implements IMatrix<Matrix4f>
 
 	public Matrix4f addI(Matrix4f matrix)
 	{
-		resetNorm();
-		
 		m00 += matrix.m00;
 		m01 += matrix.m01;
 		m02 += matrix.m02;
@@ -224,15 +210,6 @@ public class Matrix4f implements IMatrix<Matrix4f>
 			   (m10*m10) + (m11*m11) + (m12*m12) + (m13*m13) +
 			   (m20*m20) + (m21*m21) + (m22*m22) + (m23*m23) +
 			   (m30*m30) + (m31*m31) + (m32*m32) + (m33*m33);
-	}
-
-	@Override
-	public float norm()
-	{
-		if (-1.0f == norm) {
-			norm = (float) Math.sqrt(normSquared());
-		}
-		return norm;
 	}
 
 	@Override
@@ -330,8 +307,6 @@ public class Matrix4f implements IMatrix<Matrix4f>
 	@Override
 	public Matrix4f set(int index, float value)
 	{
-		resetNorm();
-		
 		switch (index) {
 			case 0:
 				m00 = value;
@@ -447,8 +422,6 @@ public class Matrix4f implements IMatrix<Matrix4f>
 	@Override
 	public Matrix4f set(int row, int col, float value)
 	{
-		resetNorm();
-		
 		switch (row) {
 	        case 0:
 	        	switch (col) {
@@ -526,8 +499,6 @@ public class Matrix4f implements IMatrix<Matrix4f>
 	
 	public Matrix4f set(int row, int col, Matrix3f mat)
 	{
-		resetNorm();
-		
 		switch (row) { 
 	        case 0:
 	        	switch (col) {
@@ -591,8 +562,6 @@ public class Matrix4f implements IMatrix<Matrix4f>
 	
 	public void setColumn(int col, Float4 vector)
 	{
-		resetNorm();
-		
 		switch (col) {
 	        case 0:
 	        	m00 = vector.getX();
@@ -625,8 +594,6 @@ public class Matrix4f implements IMatrix<Matrix4f>
 	
 	public void setColumn(int col, Float3 vector)
 	{
-		resetNorm();
-		
 		switch (col) {
 	        case 0:
 	        	m00 = vector.getX();
@@ -681,11 +648,6 @@ public class Matrix4f implements IMatrix<Matrix4f>
 							-m10, -m11, -m12, -m13,
 							-m20, -m21, -m22, -m23,
 							-m30, -m31, -m32, -m33);
-	}
-	
-	private void resetNorm()
-	{
-		norm = -1.0f;
 	}
 	
 	@Override

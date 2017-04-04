@@ -8,9 +8,6 @@ public class Float3 implements IStorage<Float3>
 	private float y;
 	private float z;
 	
-	private static float norm = -1.0f;
-	private static Float3 normalisedStorage = null;
-	
 	public Float3(float value)
 	{
 		set(value);
@@ -43,7 +40,6 @@ public class Float3 implements IStorage<Float3>
 	
 	public Float3 divI(float scalar)
 	{
-		resetNorms();
 		x = x/scalar;
 		y = y/scalar;
 		z = z/scalar;
@@ -64,7 +60,6 @@ public class Float3 implements IStorage<Float3>
 	
 	public Float3 addI(Float2 storage)
 	{
-		resetNorms();
 		x += storage.getX();
 		y += storage.getY();
 		return this;
@@ -78,7 +73,6 @@ public class Float3 implements IStorage<Float3>
 	
 	public Float3 subI(Float2 storage)
 	{
-		resetNorms();
 		x -= storage.getX();
 		y -= storage.getY();
 		return this;
@@ -108,27 +102,9 @@ public class Float3 implements IStorage<Float3>
 		return dot(this);
 	}
 	
-	@Override
-	public float norm()
-	{
-		if (norm == -1.0f) {
-			norm = (float) Math.sqrt(normSquared());
-		} 
-		return norm;
-	}
-	
 	public float normOfTwo()
 	{
 		return (float) Math.sqrt( x*x + y*y );
-	}
-
-	@Override
-	public Float3 normalise()
-	{
-		if (normalisedStorage == null) {
-			normalisedStorage = div(norm());
-		}
-		return normalisedStorage;
 	}
 
 	@Override
@@ -214,12 +190,6 @@ public class Float3 implements IStorage<Float3>
 		return new Float3(x, y, z);
 	}
 	
-	private void resetNorms()
-	{
-		norm = -1.0f;
-		normalisedStorage = null;
-	}
-	
 	@Override
 	public float get(int index)
 	{
@@ -243,7 +213,6 @@ public class Float3 implements IStorage<Float3>
 	
 	public void clear()
 	{
-		resetNorms();
 		set(0.0f);
 	}
 	

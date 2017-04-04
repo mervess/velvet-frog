@@ -4,9 +4,6 @@ public class Float7 implements IStorage<Float7>
 {
 	private float f0, f1, f2, f3, f4, f5, f6;
 	
-	private static float norm;
-	private static Float7 normalisedStorage;
-	
 	public Float7(Float3 first, Float4 second)
 	{
 		f0 = first.getX();
@@ -17,8 +14,6 @@ public class Float7 implements IStorage<Float7>
 		f4 = second.getY();
 		f5 = second.getZ();
 		f6 = second.getW();
-		
-		resetNorms();
 	}
 	
 	public Float7(float scalar)
@@ -31,8 +26,6 @@ public class Float7 implements IStorage<Float7>
 		this.f4 = scalar;
 		this.f5 = scalar;
 		this.f6 = scalar;
-		
-		resetNorms();
 	}
 	
 	public Float7(float f0, float f1, float f2, float f3, 
@@ -46,8 +39,6 @@ public class Float7 implements IStorage<Float7>
 		this.f4 = f4;
 		this.f5 = f5;
 		this.f6 = f6;
-		
-		resetNorms();
 	}
 	
 	@Override
@@ -59,8 +50,6 @@ public class Float7 implements IStorage<Float7>
 	
 	public Float7 addI(int index, float scalar)
 	{
-		resetNorms();
-		
 		switch (index) {
 			case 0:
 				f0 += scalar;
@@ -98,8 +87,6 @@ public class Float7 implements IStorage<Float7>
 	
 	public Float7 subI(int index, float scalar)
 	{
-		resetNorms();
-		
 		switch (index) {
 			case 0:
 				f0 -= scalar;
@@ -137,7 +124,6 @@ public class Float7 implements IStorage<Float7>
 	
 	public Float7 divI(float scalar)
 	{
-		resetNorms();
 		f0 /= scalar; 
 		f1 /= scalar; 
 		f2 /= scalar; 
@@ -150,8 +136,6 @@ public class Float7 implements IStorage<Float7>
 	
 	public Float7 divI(int index, float scalar)
 	{
-		resetNorms();
-		
 		switch (index) {
 			case 0:
 				f0 /= scalar;
@@ -189,7 +173,6 @@ public class Float7 implements IStorage<Float7>
 	
 	public Float7 multI(float scalar)
 	{
-		resetNorms();
 		f0 *= scalar; 
 		f1 *= scalar; 
 		f2 *= scalar; 
@@ -239,24 +222,6 @@ public class Float7 implements IStorage<Float7>
 	public float normSquared()
 	{
 		return dot(this);
-	}
-
-	@Override
-	public float norm()
-	{
-		if (norm == -1.0f) {
-			norm = (float) Math.sqrt(normSquared());
-		} 
-		return norm;
-	}
-
-	@Override
-	public Float7 normalise()
-	{
-		if (normalisedStorage == null) {
-			normalisedStorage = div(norm());
-		}
-		return normalisedStorage;
 	}
 
 	@Override
@@ -370,8 +335,6 @@ public class Float7 implements IStorage<Float7>
 	
 	public void set(int index, float value)
 	{
-		resetNorms();
-		
 		switch (index) {
 			case 0:
 				f0 = value;
@@ -401,8 +364,6 @@ public class Float7 implements IStorage<Float7>
 	
 	public void set(int index, Float6 float6)
 	{
-		resetNorms();
-		
 		switch (index) {
 			case 0:
 				f0 = float6.getF0();
@@ -433,12 +394,6 @@ public class Float7 implements IStorage<Float7>
         return this;
     }
 	
-	private void resetNorms()
-	{
-		norm = -1.0f;
-		normalisedStorage = null;
-	}
-
 	@Override
 	public int getSize()
 	{

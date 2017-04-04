@@ -14,12 +14,9 @@ import storage.Float3;
  */
 public class Matrix3f extends com.sun.javafx.geom.Matrix3f implements IMatrix<Matrix3f>
 {
-	private static float norm;
-	
 	public Matrix3f()
 	{
 		super();
-		resetNorm();
 	}
 	
 	public Matrix3f(float m00, float m01, float m02,
@@ -27,13 +24,11 @@ public class Matrix3f extends com.sun.javafx.geom.Matrix3f implements IMatrix<Ma
 		            float m20, float m21, float m22)
 	{
 		super(m00, m01, m02, m10, m11, m12, m20, m21, m22);
-		resetNorm();
 	}
 	
 	public Matrix3f(float[] matrix)
 	{
 		super(matrix);
-		resetNorm();
 	}
 	
 	@Override
@@ -62,8 +57,6 @@ public class Matrix3f extends com.sun.javafx.geom.Matrix3f implements IMatrix<Ma
 	
 	public Matrix3f addI(Matrix3f matrix)
 	{
-		resetNorm();
-		
 		m00 += matrix.m00;
 		m01 += matrix.m01; 
 		m02 += matrix.m02; 
@@ -86,8 +79,6 @@ public class Matrix3f extends com.sun.javafx.geom.Matrix3f implements IMatrix<Ma
 	
 	public Matrix3f subI(Matrix3f matrix)
 	{
-		resetNorm();
-		
 		m00 -= matrix.m00;
 		m01 -= matrix.m01; 
 		m02 -= matrix.m02; 
@@ -126,15 +117,6 @@ public class Matrix3f extends com.sun.javafx.geom.Matrix3f implements IMatrix<Ma
 		return (m00*m00) + (m01*m01) + (m02*m02) +
 			   (m10*m10) + (m11*m11) + (m12*m12) +
 			   (m20*m20) + (m21*m21) + (m22*m22);
-	}
-
-	@Override
-	public float norm()
-	{
-		if (-1.0f == norm) {
-			norm = (float) Math.sqrt(normSquared());
-		}
-		return norm;
 	}
 
 	@Override
@@ -213,8 +195,6 @@ public class Matrix3f extends com.sun.javafx.geom.Matrix3f implements IMatrix<Ma
 	@Override
 	public Matrix3f set(int index, float value)
 	{
-		resetNorm();
-		
 		switch (index) {
 			case 0:
 				m00 = value;
@@ -291,8 +271,6 @@ public class Matrix3f extends com.sun.javafx.geom.Matrix3f implements IMatrix<Ma
 	@Override
 	public Matrix3f set(int row, int col, float value)
 	{
-		resetNorm();
-		
 		switch (row) {
 	        case 0:
 	        	switch (col) {
@@ -358,8 +336,6 @@ public class Matrix3f extends com.sun.javafx.geom.Matrix3f implements IMatrix<Ma
 	
 	public void setColumn(int col, Float3 vector)
 	{
-		resetNorm();
-		
 		switch (col) {
 	        case 0:
 	        	m00 = vector.getX();
@@ -397,8 +373,6 @@ public class Matrix3f extends com.sun.javafx.geom.Matrix3f implements IMatrix<Ma
 	
 	public void setRow(int row, Float3 vector)
 	{
-		resetNorm();
-		
 		switch (row) {
 	        case 0:
 	        	m00 = vector.getX();
@@ -516,11 +490,6 @@ public class Matrix3f extends com.sun.javafx.geom.Matrix3f implements IMatrix<Ma
 				matrix.m20 /= det;
 				matrix.m21 /= det;
 				matrix.m22 /= det;
-	}
-	
-	private void resetNorm()
-	{
-		norm = -1.0f;
 	}
 	
 	@Override
