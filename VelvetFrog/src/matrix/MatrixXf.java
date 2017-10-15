@@ -7,8 +7,8 @@ import vector.VecXf;
 
 public class MatrixXf implements IMatrix<MatrixXf>
 {
-	private final float[] data;
-	private final int rowCount, colCount, numElements;
+	protected final float[] data;
+	protected final int rowCount, colCount, numElements;
 	
 	public MatrixXf(int rowCount, int colCount)
 	{
@@ -306,6 +306,11 @@ public class MatrixXf implements IMatrix<MatrixXf>
 		return rowCount;
 	}
 	
+	public int getTotalNumberOfElements()
+	{
+		return numElements;
+	}
+	
 	public MatrixXf fill(float value)
 	{
 		for (int i = 0; i < numElements; i++) {
@@ -314,7 +319,7 @@ public class MatrixXf implements IMatrix<MatrixXf>
 		return this;
 	}
 	
-	public float[] toArray()
+	protected float[] toArray()
 	{
 		return data;
 	}

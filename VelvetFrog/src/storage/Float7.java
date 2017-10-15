@@ -405,6 +405,18 @@ public class Float7 implements IStorage<Float7>
 		return new Float7(f0, f1, f2, f3, f4, f5, f6);
 	}
 	
+	public void clear()
+	{
+		f0 = 0.0f;
+		f1 = 0.0f;
+		f2 = 0.0f;
+
+		f3 = 0.0f;
+		f4 = 0.0f;
+		f5 = 0.0f;
+		f6 = 0.0f;
+	}
+	
 	@Override
 	public String toString()
 	{

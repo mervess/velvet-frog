@@ -384,13 +384,18 @@ public class Matrix6f implements IMatrix<Matrix6f>
 	@Override
 	public Matrix6f mult(Matrix6f matrix)
 	{
-		return new Matrix6f(
-				 m00*matrix.m00, m01*matrix.m01, m02*matrix.m02, m03*matrix.m03, m04*matrix.m04, m05*matrix.m05,
-				 m10*matrix.m10, m11*matrix.m11, m12*matrix.m12, m13*matrix.m13, m14*matrix.m14, m15*matrix.m15,
-				 m20*matrix.m20, m21*matrix.m21, m22*matrix.m22, m23*matrix.m23, m24*matrix.m24, m25*matrix.m25,
-				 m30*matrix.m30, m31*matrix.m31, m32*matrix.m32, m33*matrix.m33, m34*matrix.m34, m35*matrix.m35,
-				 m40*matrix.m40, m41*matrix.m41, m42*matrix.m42, m43*matrix.m43, m44*matrix.m44, m45*matrix.m45,
-				 m50*matrix.m50, m51*matrix.m51, m52*matrix.m52, m53*matrix.m53, m54*matrix.m54, m55*matrix.m55);
+		final float[] newMatrix = new float[getRowCount()*matrix.getColumnCount()];
+		int index = 0;
+		for (int i = 0; i < getRowCount(); i++) {
+			for (int j = 0; j < matrix.getColumnCount(); j++) {
+				float value = 0.0f;
+                for (int k = 0; k < getColumnCount(); k++) {
+                    value += get(i, k) * matrix.get(k, j);
+                }
+                newMatrix[index++] = value;
+			}
+		}
+		return new Matrix6f(newMatrix);
 	}
 
 	@Override

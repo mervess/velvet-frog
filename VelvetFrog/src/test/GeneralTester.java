@@ -1,11 +1,14 @@
 package test;
 
+import matrix.Matrix3f;
 import matrix.Matrix4f;
 import matrix.Matrix6f;
 import matrix.MatrixXf;
+import storage.Float3;
 import storage.Float6;
 import uk.ac.man.cs.slam.numeric.ArithmeticMatrix;
 import uk.ac.man.cs.slam.numeric.ArithmeticVector;
+import uk.ac.man.cs.slam.numeric.Quaternion;
 import uk.ac.man.cs.slam.numeric.builder.MatrixBuilder;
 
 public class GeneralTester
@@ -41,17 +44,26 @@ public class GeneralTester
 //		System.out.println(m6.getDiagonal());
 //		System.out.println(m6.transpose());
 		
-//		MatrixXf m32 = new MatrixXf(3, 4,
-//				new float[] {1, 2, 3, 17, 
-//							4, 5, 6, 18,
-//							7, 8, 9, 19});
+//		MatrixXf m32 = new MatrixXf(3, 3,
+//				new float[] {1, 2, 3, 
+//							4, 5, 6,
+//							7, 8, 9});
 //		System.out.println(m32.getDiagonalMatrix(0, 3));
 //		System.out.println(m32.getDiagonal());
 //		System.out.println(m32);
 //		System.out.println(m32.transpose());
 		
-//		MatrixXf multMat = new MatrixXf(4, 1, new float[]{1,2,3,4});
+//		MatrixXf multMat = new MatrixXf(3, 3, new float[]{9,8,7,6,5,4,3,2,1});
 //		System.out.println(m32.mult(multMat));
+		
+//		System.out.println("------------");
+		
+		Matrix6f m3f_1 = new Matrix6f(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 
+										1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,
+										1, 2, 3, 4);
+		Matrix6f m3f_2 = new Matrix6f(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+				, 0, 0, 0, 0, 0, 0);
+		System.out.println(m3f_1.mult(m3f_2));
 		
 //		MatrixXf m33 = new MatrixXf(3, 3,
 //				new float[] {1, 2, 0,
@@ -98,8 +110,22 @@ public class GeneralTester
 //			System.out.print(array[i] + ", ");
 //		}
 		
-		float a = -0;
-		System.out.println(-a < 0);
+//		float a = (float)1.8027756;
+//		System.out.println( String.format("%.10f", a) );
+		
+//		Float3 f3 = new Float3(a, 56.7890567f, 1.23f);
+//		System.out.println( String.format("%.5f", f3) );
+		
+//		int size = 159;
+//		double random = Math.random();
+//		int idx1 = (int)(random*(size-1));
+//		int idx2 = (int) (random % size);
+//		System.out.println("idx1 -> " +idx1);
+//		System.out.println("idx2 -> " +idx2);
+		
+//		Boolean[] abc = new Boolean[2];
+//		System.out.println(abc[0]);
+//		System.out.println(abc[1]);
 	}
 
 }

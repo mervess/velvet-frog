@@ -58,6 +58,14 @@ public class Float3 implements IStorage<Float3>
 		return new Float3(x+storage.x, y+storage.y, z+storage.z);
 	}
 	
+	public Float3 addI(Float3 storage)
+	{
+		x += storage.getX();
+		y += storage.getY();
+		z += storage.getZ();
+		return this;
+	}
+	
 	public Float3 addI(Float2 storage)
 	{
 		x += storage.getX();
@@ -102,9 +110,14 @@ public class Float3 implements IStorage<Float3>
 		return dot(this);
 	}
 	
-	public float normOfTwo()
+	public float normOfHeadTwo()
 	{
 		return (float) Math.sqrt( x*x + y*y );
+	}
+	
+	public float normOfTailTwo()
+	{
+		return (float) Math.sqrt( y*y + z*z );
 	}
 
 	@Override
@@ -185,6 +198,43 @@ public class Float3 implements IStorage<Float3>
 							z*x, z*y, z*z);
 	}
 	
+	/**
+	 * Influenced by Eigen's OrthoMethods.h - run method in unitOrthogonal_selector<Derived,3>
+	 * 
+	 * XXX qglviewer and apache's commons-math also have this method. In any problem, you can check these implementations.
+	 * http://wiki.icub.org/italk/dox/html/vec_8cpp_source.html -> qglviewer's vec.cpp
+	 * @return
+	 */
+	public Float3 unitOrthogonal()
+	{
+		Float3 orthogonal;
+		
+		if (!isMuchSmallerThan(x, z) || !isMuchSmallerThan(y, z)) {
+			float invnm = 1.0f / normOfHeadTwo();
+			orthogonal = new Float3(-y*invnm, x*invnm, 0.0f);
+		} else {
+			float invnm = 1.0f / normOfTailTwo();
+			orthogonal = new Float3(0.0f, -z*invnm, y*invnm);
+		}
+		
+		return orthogonal;
+	}
+	
+	/**
+     * This function is inspired by vcglib's ei_isMuchSmallerThan(float {...}).
+     * http://docs.ros.org/electric/api/vcglib/html/MathFunctions_8h_source.html -> vcglib's MathFunctions.h
+     * It is also relevant to Eigen's MathFunctions.h
+     * 1e-5f =  precision<float>()
+     * @param scalar1
+     * @param scalar2
+     * @return
+     */
+    public static boolean isMuchSmallerThan(float scalar1, float scalar2)
+    {
+    	return Math.abs(scalar1) 
+    				<= Math.abs(scalar2) * 1e-5f;
+    }
+	
 	public Float3 copy()
 	{
 		return new Float3(x, y, z);
@@ -219,7 +269,9 @@ public class Float3 implements IStorage<Float3>
 	@Override
 	public String toString()
 	{
-		return "Float3 storage values: " + x + ", " + y
-					+ ", " + z;
+		return 
+				"Float3[" + 
+				x + ", " + y + ", " + z
+				+ "]";
 	}
 }

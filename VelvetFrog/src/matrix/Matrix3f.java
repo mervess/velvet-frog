@@ -14,6 +14,9 @@ import storage.Float3;
  */
 public class Matrix3f extends com.sun.javafx.geom.Matrix3f implements IMatrix<Matrix3f>
 {
+
+	public static final Matrix3f IDENTITY = new Matrix3f();
+	
 	public Matrix3f()
 	{
 		super();
@@ -94,9 +97,18 @@ public class Matrix3f extends com.sun.javafx.geom.Matrix3f implements IMatrix<Ma
 	@Override
 	public Matrix3f mult(Matrix3f matrix)
 	{
-		return new Matrix3f(m00*matrix.m00, m01*matrix.m01, m02*matrix.m02, 
-							m10*matrix.m10, m11*matrix.m11, m12*matrix.m12,
-							m20*matrix.m20, m21*matrix.m21, m22*matrix.m22);
+		final float[] newMatrix = new float[getRowCount()*matrix.getColumnCount()];
+		int index = 0;
+		for (int i = 0; i < getRowCount(); i++) {
+			for (int j = 0; j < matrix.getColumnCount(); j++) {
+				float value = 0.0f;
+                for (int k = 0; k < getColumnCount(); k++) {
+                    value += get(i, k) * matrix.get(k, j);
+                }
+                newMatrix[index++] = value;
+			}
+		}
+		return new Matrix3f(newMatrix);
 	}
 	
 	/**

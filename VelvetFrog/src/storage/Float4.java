@@ -195,4 +195,9 @@ public class Float4 implements IStorage<Float4>
 	{
 		return 4;
 	}
+	
+	public Float4 copy()
+	{
+		return new Float4(x, y, z, w);
+	}
 }
