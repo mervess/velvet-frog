@@ -961,4 +961,10 @@ public class Matrix6f implements IMatrix<Matrix6f>
 		m40 + ", " +  m41 + ", " +  m42 + ", " +  m43 + ", " +  m44 + ", " +  m45 + "\n" + 
 		m50 + ", " +  m51 + ", " +  m52 + ", " +  m53 + ", " +  m54 + ", " +  m55 + "\n";
 	}
+
+	@Override
+	public int size()
+	{
+		return 36;
+	}
 }

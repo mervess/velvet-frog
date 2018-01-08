@@ -51,6 +51,20 @@ public class Float3 implements IStorage<Float3>
 	{
 		return new Float3(x*scalar, y*scalar, z*scalar);
 	}
+	
+	/**
+	 * Cross product 
+	 * 
+	 * @param storage
+	 * @return
+	 */
+	public Float3 cross(Float3 storage)
+	{
+        return new Float3(
+                y * storage.z - z * storage.y,
+                z * storage.x - x * storage.z,
+                x * storage.y - y * storage.x);
+	}
 
 	@Override
 	public Float3 add(Float3 storage)
@@ -93,12 +107,6 @@ public class Float3 implements IStorage<Float3>
 	}
 
 	@Override
-	public Float3 mult(Float3 storage)
-	{
-		return new Float3(x*storage.x, y*storage.y, z*storage.z);
-	}
-
-	@Override
 	public float dot(Float3 storage)
 	{
 		return (x*storage.x) + (y*storage.y) + (z*storage.z);
@@ -132,14 +140,6 @@ public class Float3 implements IStorage<Float3>
 		return x+y+z;
 	}
 
-	public Float3 cross(Float3 storage)
-	{
-        return new Float3(
-                y * storage.z - z * storage.y,
-                z * storage.x - x * storage.z,
-                x * storage.y - y * storage.x);
-	}
-	
 	public Float2 getFloat2()
 	{
 		return new Float2(x, y);
@@ -189,7 +189,7 @@ public class Float3 implements IStorage<Float3>
 	   [x	x [x	y	z]
 	    y
 	    z]
-	 * @return Matrix4f
+	 * @return Matrix3f
 	 */
 	public Matrix3f getGramianMatrix()
 	{

@@ -698,4 +698,10 @@ public class Matrix4f implements IMatrix<Matrix4f>
 			   m20 + ", " + m21 + ", " + m22 + ", " + m23 + "\n" +
 			   m30 + ", " + m31 + ", " + m32 + ", " + m33 + "\n";
 	}
+
+	@Override
+	public int size()
+	{
+		return 16;
+	}
 }

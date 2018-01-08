@@ -214,7 +214,7 @@ public class MatrixXf implements IMatrix<MatrixXf>
 	@Override
 	public float get(int row, int col)
 	{
-		return data[row*colCount+col];
+		return data[row*colCount+col]; // y * width + x
 	}
 	
 	public MatrixXf swap(int row1, int col1, int row2, int col2)
@@ -306,7 +306,8 @@ public class MatrixXf implements IMatrix<MatrixXf>
 		return rowCount;
 	}
 	
-	public int getTotalNumberOfElements()
+	@Override
+	public int size()
 	{
 		return numElements;
 	}

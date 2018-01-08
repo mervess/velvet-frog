@@ -15,12 +15,24 @@ public class GeneralTester
 {
 	public static void main(String[] args)
 	{
-//		Matrix3f m3f = new Matrix3f(3, 0, 2, -3, 6, 0, 0, 1, 0);
+		Matrix3f m3f = new Matrix3f(3.5f, 0, 2, -3, 6, 0, 0, 1.2f, 0);
 //		Matrix3f m = m3f;
 //		m.set(0, 2, 56);
 //		System.out.println(m3f);
 //		System.out.println(m);
 //		System.out.println(m3f.inverse());
+		
+		Matrix3f m3f_2 = new Matrix3f(1, 2, 3, 
+							4.02f, 5.1f, 6,
+							7, 8.5f, 9);
+		System.out.println(m3f.mult(m3f_2));
+		
+		/**
+		 Matrix3f:
+		 17.5, 24.0, 28.5
+21.119999, 24.599998, 27.0
+4.8240004, 6.1200004, 7.2000003
+		 */
 		
 //		Matrix6f m4f = new Matrix6f(
 //				1, 2, 3, 4, 5, 6, 
@@ -58,12 +70,12 @@ public class GeneralTester
 		
 //		System.out.println("------------");
 		
-		Matrix6f m3f_1 = new Matrix6f(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 
-										1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,
-										1, 2, 3, 4);
-		Matrix6f m3f_2 = new Matrix6f(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-				, 0, 0, 0, 0, 0, 0);
-		System.out.println(m3f_1.mult(m3f_2));
+//		Matrix6f m3f_1 = new Matrix6f(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 
+//										1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,
+//										1, 2, 3, 4);
+//		Matrix6f m3f_2 = new Matrix6f(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+//				, 0, 0, 0, 0, 0, 0);
+//		System.out.println(m3f_1.mult(m3f_2));
 		
 //		MatrixXf m33 = new MatrixXf(3, 3,
 //				new float[] {1, 2, 0,
@@ -126,6 +138,9 @@ public class GeneralTester
 //		Boolean[] abc = new Boolean[2];
 //		System.out.println(abc[0]);
 //		System.out.println(abc[1]);
+		
+//		Float3 f = new Float3(1, 2, 3);
+//		System.out.println(f.cross( new Float3(0, 1, 2) ));
 	}
 
 }

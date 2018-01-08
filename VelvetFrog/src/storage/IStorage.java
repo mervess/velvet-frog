@@ -10,7 +10,6 @@ public interface IStorage<T>
 	public T add(T storage);
 	public T sub(T storage);
 	public T div(T storage);
-	public T mult(T storage);
 	
 	public float dot(T storage);
 	public float normSquared();

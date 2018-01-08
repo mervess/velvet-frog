@@ -86,19 +86,6 @@ public class Float2 implements IStorage<Float2>
 	}
 
 	@Override
-	public Float2 mult(Float2 storage)
-	{
-		return new Float2(x*storage.x, y*storage.y);
-	}
-	
-	public Float2 multI(Float2 storage)
-	{
-		x *= storage.x;
-		y *= storage.y;
-		return this;
-	}
-
-	@Override
 	public float dot(Float2 storage)
 	{
 		/*
@@ -167,6 +154,6 @@ public class Float2 implements IStorage<Float2>
 	@Override
 	public String toString()
 	{
-		return "Float2 storage values: " + x + ", " + y;
+		return String.format("Float2[%.8f, %.8f]", x, y);
 	}
 }

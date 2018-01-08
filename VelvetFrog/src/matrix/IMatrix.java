@@ -37,4 +37,5 @@ public interface IMatrix<T>
 	
 	public T copy();
 	public String toString();
+	public int size();
 }

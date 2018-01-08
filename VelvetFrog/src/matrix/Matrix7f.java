@@ -1353,4 +1353,10 @@ public class Matrix7f implements IMatrix<Matrix7f>
 				m50 + ", " +  m51 + ", " +  m52 + ", " +  m53 + ", " +  m54 + ", " +  m55 + ", " + m56 + "\n" +
 				m60 + ", " +  m61 + ", " +  m62 + ", " +  m63 + ", " +  m64 + ", " +  m65 + ", " + m66 + "\n";
 	}
+
+	@Override
+	public int size()
+	{
+		return 49;
+	}
 }

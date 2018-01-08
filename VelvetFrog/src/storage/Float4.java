@@ -87,13 +87,6 @@ public class Float4 implements IStorage<Float4>
 	}
 
 	@Override
-	public Float4 mult(Float4 storage)
-	{
-		return new Float4(x*storage.x, y*storage.y, 
-				  		  z*storage.z, w*storage.w);
-	}
-
-	@Override
 	public float dot(Float4 storage)
 	{
 		return (x*storage.x) + (y*storage.y) + 

@@ -205,13 +205,6 @@ public class Float7 implements IStorage<Float7>
 	}
 
 	@Override
-	public Float7 mult(Float7 storage)
-	{
-		return new Float7(f0*storage.f0, f1*storage.f1, f2*storage.f2, f3*storage.f3, 
-		  				  		f4*storage.f4, f5*storage.f5, f6*storage.f6);
-	}
-
-	@Override
 	public float dot(Float7 storage)
 	{
 		return (f0*storage.f0) + (f1*storage.f1) + (f2*storage.f2) + (f3*storage.f3) + 

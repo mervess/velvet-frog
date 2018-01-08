@@ -15,7 +15,7 @@ import storage.Float3;
 public class Matrix3f extends com.sun.javafx.geom.Matrix3f implements IMatrix<Matrix3f>
 {
 
-	public static final Matrix3f IDENTITY = new Matrix3f();
+	public static final Matrix3f IDENTITY = new Matrix3f(); // or UNIT matrix
 	
 	public Matrix3f()
 	{
@@ -104,6 +104,7 @@ public class Matrix3f extends com.sun.javafx.geom.Matrix3f implements IMatrix<Ma
 				float value = 0.0f;
                 for (int k = 0; k < getColumnCount(); k++) {
                     value += get(i, k) * matrix.get(k, j);
+//                    value = Math.fma( get(i, k), matrix.get(k, j), value );
                 }
                 newMatrix[index++] = value;
 			}
@@ -420,16 +421,26 @@ public class Matrix3f extends com.sun.javafx.geom.Matrix3f implements IMatrix<Ma
 	
 	/*
 	 * 3x3 Matrix Inverse Operation
+	 * 
+	 * About inverse:
+	 * A . A^-1 = I
+	 * A . x = b
+	 * x = A^-1 . b
+	 * equations could be solved.
 	 */
 	
 	public Matrix3f inverse()
 	{
-		Matrix3f matrix = new Matrix3f();
-		calcMatrixOfMinors(matrix);
-		calcMatrixOfCofactors(matrix);
-		calcAdjointMatrix(matrix);
-		multByDeterminant(matrix);
-		return matrix;
+		if (determinant() != 0) {
+			Matrix3f matrix = new Matrix3f();
+			calcMatrixOfMinors(matrix);
+			calcMatrixOfCofactors(matrix);
+			calcAdjointMatrix(matrix);
+			multByDeterminant(matrix);
+			return matrix;
+		} else {
+			throw new ArithmeticException("Det(A) = 0, inverse of A can not be calculated.");
+		}
 	}
 	
 	/**
@@ -453,6 +464,9 @@ public class Matrix3f extends com.sun.javafx.geom.Matrix3f implements IMatrix<Ma
 	}
 	
 	/**
+	 * 
+	 * A_ij = (-1)^(i+j)  M_ij
+	 * 
 	   +, -, + 
 	   -, +, - 
 	   +, -, +
@@ -516,5 +530,11 @@ public class Matrix3f extends com.sun.javafx.geom.Matrix3f implements IMatrix<Ma
 	public String toString()
 	{
 		return "Matrix3f:\n" + super.toString();
+	}
+
+	@Override
+	public int size()
+	{
+		return 9;
 	}
 }

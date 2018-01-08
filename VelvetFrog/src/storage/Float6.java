@@ -8,6 +8,11 @@ public class Float6 implements IStorage<Float6>
 {
 	private float f0, f1, f2, f3, f4, f5;
 
+	public Float6()
+	{
+		this(0);
+	}
+	
 	public Float6(Float3 first, Float3 second)
 	{
 		f0 = first.getX();
@@ -180,13 +185,6 @@ public class Float6 implements IStorage<Float6>
 	{
 		return new Float6(f0/storage.f0, f1/storage.f1, f2/storage.f2, 
 				  		  f3/storage.f3, f4/storage.f4, f5/storage.f5);
-	}
-
-	@Override
-	public Float6 mult(Float6 storage)
-	{
-		return new Float6(f0*storage.f0, f1*storage.f1, f2*storage.f2, 
-				  		  f3*storage.f3, f4*storage.f4, f5*storage.f5);
 	}
 
 	@Override
