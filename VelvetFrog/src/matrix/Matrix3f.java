@@ -9,29 +9,65 @@ import storage.Float3;
 	    m10, m11, m12 
 	    m20, m21, m22
  *
+ * Inspired by com.sun.javafx.geom.Matrix3f
+ * 
  * @author mervess
  *
  */
-public class Matrix3f extends com.sun.javafx.geom.Matrix3f implements IMatrix<Matrix3f>
+public class Matrix3f implements IMatrix<Matrix3f>
 {
 
+	public float m00, m01, m02,
+				 m10, m11, m12,
+				 m20, m21, m22;
+	
 	public static final Matrix3f IDENTITY = new Matrix3f(); // or UNIT matrix
 	
 	public Matrix3f()
 	{
-		super();
+		this.m00 = (float) 1.0;
+        this.m01 = (float) 0.0;
+        this.m02 = (float) 0.0;
+
+        this.m10 = (float) 0.0;
+        this.m11 = (float) 1.0;
+        this.m12 = (float) 0.0;
+
+        this.m20 = (float) 0.0;
+        this.m21 = (float) 0.0;
+        this.m22 = (float) 1.0;
 	}
 	
 	public Matrix3f(float m00, float m01, float m02,
 		            float m10, float m11, float m12,
 		            float m20, float m21, float m22)
 	{
-		super(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+		this.m00 = m00;
+        this.m01 = m01;
+        this.m02 = m02;
+
+        this.m10 = m10;
+        this.m11 = m11;
+        this.m12 = m12;
+
+        this.m20 = m20;
+        this.m21 = m21;
+        this.m22 = m22;
 	}
 	
 	public Matrix3f(float[] matrix)
 	{
-		super(matrix);
+		this.m00 = matrix[0];
+        this.m01 = matrix[1];
+        this.m02 = matrix[2];
+
+        this.m10 = matrix[3];
+        this.m11 = matrix[4];
+        this.m12 = matrix[5];
+
+        this.m20 = matrix[6];
+        this.m21 = matrix[7];
+        this.m22 = matrix[8];
 	}
 	
 	@Override

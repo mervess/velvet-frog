@@ -1,14 +1,15 @@
 package matrix;
 
-import uk.ac.man.cs.slam.numeric.ArithmeticMatrix;
-import uk.ac.man.cs.slam.numeric.ArithmeticVector;
-import uk.ac.man.cs.slam.numeric.builder.MatrixBuilder;
+import Jama.Matrix;
 import vector.VecXf;
 
 public class MatrixXf implements IMatrix<MatrixXf>
 {
 	protected final float[] data;
 	protected final int rowCount, colCount, numElements;
+	
+	
+	/* Constructors */
 	
 	public MatrixXf(int rowCount, int colCount)
 	{
@@ -25,6 +26,17 @@ public class MatrixXf implements IMatrix<MatrixXf>
 		numElements = rowCount*colCount;
 		this.data = data;
 	}
+	
+	protected MatrixXf(int rowCount, int colCount, double[][] data)
+	{
+		this.rowCount = rowCount;
+		this.colCount = colCount;
+		numElements = rowCount*colCount;
+		this.data = new float[numElements];
+		setDoubleToFloatArray(data);
+	}
+	/**/
+	
 	
 	public static MatrixXf createIdentityMatrix(int rowCount, int colCount)
 	{
@@ -228,24 +240,9 @@ public class MatrixXf implements IMatrix<MatrixXf>
 	@Override
 	public MatrixXf inverse()
 	{
-		final MatrixBuilder<ArithmeticMatrix, ArithmeticVector> matrix = 
-				ArithmeticMatrix.createBuilder(getRowCount(), getColumnCount());
-		for (int i=0; i<getRowCount(); i++) {
-			for (int j=0; j<getColumnCount(); j++) {
-				matrix.set(i, j, get(i, j));
-			}
-		}
-		
-		final ArithmeticMatrix invMatrix = matrix.build().inverse();
-		final MatrixXf newMatrix = new MatrixXf(getRowCount(), getColumnCount());
-		
-		for (int i=0; i<getRowCount(); i++) {
-			for (int j=0; j<getColumnCount(); j++) {
-				newMatrix.set(i, j, invMatrix.get(i, j));
-			}
-		}
-		
-		return newMatrix; // TODO fix later
+		final Matrix mat = new Matrix(toDoubleArray());
+		final Matrix matInv = mat.inverse();
+		return new MatrixXf(rowCount, colCount, matInv.getArray());
 	}
 
 	public MatrixXf subMatrix(int rowFrom, int rowTo, int colFrom, int colTo)
@@ -324,7 +321,29 @@ public class MatrixXf implements IMatrix<MatrixXf>
 	{
 		return data;
 	}
-
+	
+	/* FOR JAMA */
+	private double[][] toDoubleArray()
+	{
+		final double[][] doubleArray = new double[rowCount][colCount];
+		for (int i = 0; i < rowCount; i++) {
+			for (int j = 0; j < colCount; j++) {
+				doubleArray[i][j] = get(i, j);
+			}
+		}
+		return doubleArray;
+	}
+	
+	private void setDoubleToFloatArray(double[][] doubleArray)
+	{
+		for (int i = 0; i < rowCount; i++) {
+			for (int j = 0; j < colCount; j++) {
+				set(i, j, (float) doubleArray[i][j]);
+			}
+		}
+	}
+	/**/
+	
 	@Override
 	public MatrixXf copy()
 	{

@@ -2,9 +2,6 @@ package matrix;
 
 import storage.Float3;
 import storage.Float4;
-import uk.ac.man.cs.slam.numeric.ArithmeticMatrix;
-import uk.ac.man.cs.slam.numeric.ArithmeticVector;
-import uk.ac.man.cs.slam.numeric.builder.MatrixBuilder;
 
 /**
  * Float Matrix 4x4
@@ -254,25 +251,9 @@ public class Matrix4f implements IMatrix<Matrix4f>
 	@Override
 	public Matrix4f inverse()
 	{
-		// TODO Auto-generated method stub
-		final MatrixBuilder<ArithmeticMatrix, ArithmeticVector> matrix = 
-				ArithmeticMatrix.createBuilder(getRowCount(), getColumnCount());
-		for (int i=0; i<getRowCount(); i++) {
-			for (int j=0; j<getColumnCount(); j++) {
-				matrix.set(i, j, get(i, j));
-			}
-		}
-		
-		final ArithmeticMatrix invMatrix = matrix.build().inverse();
-		final Matrix4f newMatrix = new Matrix4f();
-		
-		for (int i=0; i<getRowCount(); i++) {
-			for (int j=0; j<getColumnCount(); j++) {
-				newMatrix.set(i, j, invMatrix.get(i, j));
-			}
-		}
-		
-		return newMatrix;
+		final MatrixXf matrixXf = new MatrixXf(getRowCount(), getColumnCount(), toArray());
+		final MatrixXf invMatrix = matrixXf.inverse();
+		return new Matrix4f(invMatrix.toArray());
 	}
 
 	@Override
@@ -687,6 +668,14 @@ public class Matrix4f implements IMatrix<Matrix4f>
 							m10, m11, m12, m13,
 							m20, m21, m22, m23,
 							m30, m31, m32, m33);
+	}
+	
+	private float[] toArray()
+	{
+		return new float[] { m00, m01, m02, m03,
+               				 m10, m11, m12, m13,
+            				 m20, m21, m22, m23,
+            				 m30, m31, m32, m33 };
 	}
 
 	@Override
