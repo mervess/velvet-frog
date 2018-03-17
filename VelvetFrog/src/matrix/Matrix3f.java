@@ -1,6 +1,6 @@
 package matrix;
 
-import storage.Float3;
+import vector.Vector3f;
 
 /**
  * Float Matrix 3x3
@@ -14,119 +14,118 @@ import storage.Float3;
  * @author mervess
  *
  */
-public class Matrix3f implements IMatrix<Matrix3f>
+public class Matrix3f extends IMatrix<Matrix3f>
 {
-
-	public float m00, m01, m02,
-				 m10, m11, m12,
-				 m20, m21, m22;
 	
 	public static final Matrix3f IDENTITY = new Matrix3f(); // or UNIT matrix
 	
 	public Matrix3f()
 	{
-		this.m00 = (float) 1.0;
-        this.m01 = (float) 0.0;
-        this.m02 = (float) 0.0;
-
-        this.m10 = (float) 0.0;
-        this.m11 = (float) 1.0;
-        this.m12 = (float) 0.0;
-
-        this.m20 = (float) 0.0;
-        this.m21 = (float) 0.0;
-        this.m22 = (float) 1.0;
+		this.m = new float[] {1.0f, 0.0f, 0.0f,
+							  0.0f, 1.0f, 0.0f,
+							  0.0f, 0.0f, 1.0f};
 	}
 	
 	public Matrix3f(float m00, float m01, float m02,
 		            float m10, float m11, float m12,
 		            float m20, float m21, float m22)
 	{
-		this.m00 = m00;
-        this.m01 = m01;
-        this.m02 = m02;
-
-        this.m10 = m10;
-        this.m11 = m11;
-        this.m12 = m12;
-
-        this.m20 = m20;
-        this.m21 = m21;
-        this.m22 = m22;
+		this.m[0*3+0] = m00;
+        this.m[0*3+1] = m01;
+        this.m[0*3+2] = m02;
+        this.m[1*3+0] = m10;
+        this.m[1*3+1] = m11;
+        this.m[1*3+2] = m12;
+        this.m[2*3+0] = m20;
+        this.m[2*3+1] = m21;
+        this.m[2*3+2] = m22;
 	}
 	
 	public Matrix3f(float[] matrix)
 	{
-		this.m00 = matrix[0];
-        this.m01 = matrix[1];
-        this.m02 = matrix[2];
-
-        this.m10 = matrix[3];
-        this.m11 = matrix[4];
-        this.m12 = matrix[5];
-
-        this.m20 = matrix[6];
-        this.m21 = matrix[7];
-        this.m22 = matrix[8];
+		for (int i = 0; i < size(); i++)
+		{
+			this.m[i] = matrix[i];
+		}
 	}
 	
 	@Override
 	public Matrix3f div(float scalar)
 	{
-		return new Matrix3f(m00/scalar, m01/scalar, m02/scalar, 
-					        m10/scalar, m11/scalar, m12/scalar, 
-					        m20/scalar, m21/scalar, m22/scalar);
+		Matrix3f retMatrix = new Matrix3f();
+		for (int i = 0; i < size(); i++)
+		{
+			retMatrix.m[i] = this.m[i]/scalar;			
+		}
+		return retMatrix;
 	}
 
 	@Override
 	public Matrix3f mult(float scalar)
 	{
-		return new Matrix3f(m00*scalar, m01*scalar, m02*scalar, 
-					        m10*scalar, m11*scalar, m12*scalar, 
-					        m20*scalar, m21*scalar, m22*scalar);
+		Matrix3f retMatrix = new Matrix3f();
+		for (int i = 0; i < size(); i++)
+		{
+			retMatrix.m[i] = this.m[i]*scalar;			
+		}
+		return retMatrix;
+	}
+	
+	public Matrix3f divI(float scalar)
+	{
+		for (int i = 0; i < this.size(); i++)
+		{
+			this.m[i] /= scalar;
+		}
+		return this;
+	}
+
+	public Matrix3f multI(float scalar)
+	{
+		for (int i = 0; i < size(); i++)
+		{
+			this.m[i] *= scalar;
+		}
+		return this;
 	}
 
 	@Override
 	public Matrix3f add(Matrix3f matrix)
 	{
-		return new Matrix3f(m00+matrix.m00, m01+matrix.m01, m02+matrix.m02, 
-							m10+matrix.m10, m11+matrix.m11, m12+matrix.m12,
-							m20+matrix.m20, m21+matrix.m21, m22+matrix.m22);
+		Matrix3f retMatrix = new Matrix3f();
+		for (int i = 0; i < size(); i++)
+		{
+			retMatrix.m[i] = this.m[i]+matrix.m[i];			
+		}
+		return retMatrix;
 	}
 	
 	public Matrix3f addI(Matrix3f matrix)
 	{
-		m00 += matrix.m00;
-		m01 += matrix.m01; 
-		m02 += matrix.m02; 
-			m10 += matrix.m10; 
-			m11 += matrix.m11; 
-			m12 += matrix.m12;
-		        m20 += matrix.m20; 
-		        m21 += matrix.m21; 
-		        m22 += matrix.m22;
+		for (int i = 0; i < size(); i++)
+		{
+			this.m[i] += matrix.m[i];			
+		}
 		return this;
 	}
 
 	@Override
 	public Matrix3f sub(Matrix3f matrix)
 	{
-		return new Matrix3f(m00-matrix.m00, m01-matrix.m01, m02-matrix.m02, 
-							m10-matrix.m10, m11-matrix.m11, m12-matrix.m12,
-							m20-matrix.m20, m21-matrix.m21, m22-matrix.m22);
+		Matrix3f retMatrix = new Matrix3f();
+		for (int i = 0; i < size(); i++)
+		{
+			retMatrix.m[i] = this.m[i]-matrix.m[i];			
+		}
+		return retMatrix;
 	}
 	
 	public Matrix3f subI(Matrix3f matrix)
 	{
-		m00 -= matrix.m00;
-		m01 -= matrix.m01; 
-		m02 -= matrix.m02; 
-			m10 -= matrix.m10; 
-			m11 -= matrix.m11; 
-			m12 -= matrix.m12;
-		        m20 -= matrix.m20; 
-		        m21 -= matrix.m21; 
-		        m22 -= matrix.m22;
+		for (int i = 0; i < size(); i++)
+		{
+			this.m[i] -= matrix.m[i];			
+		}
 		return this;
 	}
 
@@ -150,61 +149,53 @@ public class Matrix3f implements IMatrix<Matrix3f>
 	
 	/**
 	 * 
-	 * @param Float3 storage 
+	 * @param Vector3f storage 
 	 * @return
 	 */
-	public Float3 mult(Float3 storage)
+	public Vector3f mult(Vector3f storage)
 	{
-		return new Float3(storage.dot( getRow(0) ), 
-						  storage.dot( getRow(1) ),
-						  storage.dot( getRow(2) ));
+		return new Vector3f(storage.dot(getRow(0)), 
+							storage.dot(getRow(1)),
+							storage.dot(getRow(2)));
 	}
 
 	@Override
 	public float normSquared()
 	{
-		return (m00*m00) + (m01*m01) + (m02*m02) +
-			   (m10*m10) + (m11*m11) + (m12*m12) +
-			   (m20*m20) + (m21*m21) + (m22*m22);
-	}
-
-	@Override
-	public float sum()
-	{
-		return m00 + m01 + m02 +
-			   m10 + m11 + m12 +
-			   m20 + m21 + m22;
+		return (m[0*3+0]*m[0*3+0]) + (m[0*3+1]*m[0*3+1]) + (m[0*3+2]*m[0*3+2]) +
+			   (m[1*3+0]*m[1*3+0]) + (m[1*3+1]*m[1*3+1]) + (m[1*3+2]*m[1*3+2]) +
+			   (m[2*3+0]*m[2*3+0]) + (m[2*3+1]*m[2*3+1]) + (m[2*3+2]*m[2*3+2]);
 	}
 
 	@Override
 	public Matrix3f multDiagonal(float scalar)
 	{
-		return new Matrix3f(m00*scalar, m01, 		m02, 
-					        m10, 		m11*scalar, m12, 
-					        m20, 		m21, 		m22*scalar);
+		return new Matrix3f(m[0]*scalar, m[1], 		  m[2], 
+					        m[3], 		 m[4]*scalar, m[5], 
+					        m[6], 		 m[7], 		  m[8]*scalar);
 	}
 
 	@Override
 	public Matrix3f transpose()
 	{
-		return new Matrix3f(m00, m10, m20, 
-					        m01, m11, m21, 
-					        m02, m12, m22);
+		return new Matrix3f(m[0], m[3], m[6], 
+					        m[1], m[4], m[7], 
+					        m[2], m[5], m[8]);
 	}
 
 	@Override
 	public Matrix3f negate()
 	{
-		return new Matrix3f(-m00, -m01, -m02, 
-					        -m10, -m11, -m12, 
-					        -m20, -m21, -m22);
+		return new Matrix3f(-m[0], -m[1], -m[2], 
+					        -m[3], -m[4], -m[5], 
+					        -m[6], -m[7], -m[8]);
 	}
 	
 	public float determinant()
 	{
-		return m00 * ( (m11*m22) - (m12*m21) )
-			 - m01 * ( (m10*m22) - (m12*m20) )
-			 + m02 * ( (m10*m21) - (m11*m20) );
+		return m[0*3+0] * ( (m[1*3+1]*m[2*3+2]) - (m[1*3+2]*m[2*3+1]) )
+			 - m[0*3+1] * ( (m[1*3+0]*m[2*3+2]) - (m[1*3+2]*m[2*3+0]) )
+			 + m[0*3+2] * ( (m[1*3+0]*m[2*3+1]) - (m[1*3+1]*m[2*3+0]) );
 	}
 	
 	/*
@@ -217,230 +208,51 @@ public class Matrix3f implements IMatrix<Matrix3f>
 	@Override
 	public float get(int index)
 	{
-		switch (index) {
-			case 0:
-				return m00;
-			case 1:
-				return m01;
-			case 2:
-				return m02;
-			case 3:
-				return m10;
-			case 4:
-				return m11;
-			case 5:
-				return m12;
-			case 6:
-				return m20;
-			case 7:
-				return m21;
-			case 8:
-				return m22;
-			default:
-	            throw new ArrayIndexOutOfBoundsException("Matrix3f - get("+index+")");
-		}
+		return this.m[index];
 	}
 	
 	@Override
 	public Matrix3f set(int index, float value)
 	{
-		switch (index) {
-			case 0:
-				m00 = value;
-				break;
-			case 1:
-				m01 = value;
-				break;
-			case 2:
-				m02 = value;
-				break;
-			case 3:
-				m10 = value;
-				break;
-			case 4:
-				m11 = value;
-				break;
-			case 5:
-				m12 = value;
-				break;
-			case 6:
-				m20 = value;
-				break;
-			case 7:
-				m21 = value;
-				break;
-			case 8:
-				m22 = value;
-				break;
-			default:
-	            throw new ArrayIndexOutOfBoundsException("Matrix3f");
-		}
+		this.m[index] = value;
 		return this;
 	}
 
 	@Override
 	public float get(int row, int col)
 	{
-		switch (row) {
-	        case 0:
-	        	switch (col) {
-		        	case 0:
-		        		return m00;
-		        	case 1:
-		        		return m01;
-		        	case 2:
-		        		return m02;
-	        	}
-	        	
-	        case 1:
-	        	switch (col) {
-		        	case 0:
-		        		return m10;
-		        	case 1:
-		        		return m11;
-		        	case 2:
-		        		return m12;
-	        	}
-	        	
-	        case 2:
-	        	switch (col) {
-		        	case 0:
-		        		return m20;
-		        	case 1:
-		        		return m21;
-		        	case 2:
-		        		return m22;
-	        	}
-	        	
-	        default:
-	            throw new ArrayIndexOutOfBoundsException("Matrix3f");
-	    }
+		return this.m[row*3+col];
 	}
 	
 	@Override
 	public Matrix3f set(int row, int col, float value)
 	{
-		switch (row) {
-	        case 0:
-	        	switch (col) {
-		        	case 0:
-		        		this.m00 = value;
-		        		break;
-		        	case 1:
-		        		this.m01 = value;
-		        		break;
-		        	case 2:
-		        		this.m02 = value;
-		        		break;
-	        	}
-	        	break;
-	        	
-	        case 1:
-	        	switch (col) {
-		        	case 0:
-		        		this.m10 = value;
-		        		break;
-		        	case 1:
-		        		this.m11 = value;
-		        		break;
-		        	case 2:
-		        		this.m12 = value;
-		        		break;
-	        	}
-	        	break;
-	        	
-	        case 2:
-	        	switch (col) {
-		        	case 0:
-		        		this.m20 = value;
-		        		break;
-		        	case 1:
-		        		this.m21 = value;
-		        		break;
-		        	case 2:
-		        		this.m22 = value;
-		        		break;
-	        	}
-	        	break;
-	        	
-	        default:
-	            throw new ArrayIndexOutOfBoundsException("Matrix3f");
-	    }
+		this.m[row*3+col] = value;
 		return this;
 	}
 	
-	public Float3 getColumn(int col)
+	public Vector3f getColumn(int col)
 	{
-		switch (col) {
-	        case 0:
-	        	return new Float3(m00, m10, m20);
-	        case 1:
-	        	return new Float3(m01, m11, m21);
-	        case 2:
-	        	return new Float3(m02, m12, m22);
-	        default:
-	            throw new ArrayIndexOutOfBoundsException("Matrix3f");
-	    }
+		return new Vector3f(m[col], m[3+col], m[6+col]);
 	}
 	
-	public void setColumn(int col, Float3 vector)
+	public void setColumn(int col, Vector3f vector)
 	{
-		switch (col) {
-	        case 0:
-	        	m00 = vector.getX();
-	        	m10 = vector.getY();
-	        	m20 = vector.getZ();
-	        	break;
-	        case 1:
-	        	m01 = vector.getX();
-	        	m11 = vector.getY();
-	        	m21 = vector.getZ();
-	        	break;
-	        case 2:
-	        	m02 = vector.getX();
-	        	m12 = vector.getY();
-	        	m22 = vector.getZ();
-	        	break;
-	        default:
-	        	throw new ArrayIndexOutOfBoundsException("Matrix3f.setColumn: "+col+" - "+vector.toString());
-		}
+		this.m[col] = vector.get(0);
+		this.m[3+col] = vector.get(1);
+		this.m[6+col] = vector.get(2);
 	}
 	
-	public Float3 getRow(int row)
+	public Vector3f getRow(int row)
 	{
-		switch (row) {
-	        case 0:
-	        	return new Float3(m00, m01, m02);
-	        case 1:
-	        	return new Float3(m10, m11, m12);
-	        case 2:
-	        	return new Float3(m20, m21, m22);
-	        default:
-	            throw new ArrayIndexOutOfBoundsException("Matrix3f - getRow("+row+")");
-	    }
+		return new Vector3f(m[row*3], m[row*3+1], m[row*3+2]);
 	}
 	
-	public void setRow(int row, Float3 vector)
+	public void setRow(int row, Vector3f vector)
 	{
-		switch (row) {
-	        case 0:
-	        	m00 = vector.getX();
-	        	m01 = vector.getY();
-	        	m02 = vector.getZ();
-	        	break;
-	        case 1:
-	        	m10 = vector.getX();
-	        	m11 = vector.getY();
-	        	m12 = vector.getZ();
-	        	break;
-	        case 2:
-	        	m20 = vector.getX();
-	        	m21 = vector.getY();
-	        	m22 = vector.getZ();
-	        	break;
-	        default:
-	        	throw new ArrayIndexOutOfBoundsException("Matrix3f-setRow: "+row+" - "+vector.toString());
-		}
+		this.m[row*3] = vector.get(0);
+		this.m[row*3+1] = vector.get(1);
+		this.m[row*3+2] = vector.get(2);
 	}
 	
 	@Override
@@ -486,17 +298,15 @@ public class Matrix3f implements IMatrix<Matrix3f>
 	 */
 	private void calcMatrixOfMinors(Matrix3f matrixOfMinors)
 	{
-		matrixOfMinors.m00 = (m11*m22) - (m12*m21);
-		matrixOfMinors.m01 = (m10*m22) - (m12*m20);
-		matrixOfMinors.m02 = (m10*m21) - (m11*m20);
-		
-		matrixOfMinors.m10 = (m01*m22) - (m02*m21);
-		matrixOfMinors.m11 = (m00*m22) - (m02*m20);
-		matrixOfMinors.m12 = (m00*m21) - (m01*m20);
-		
-		matrixOfMinors.m20 = (m01*m12) - (m02*m11);
-		matrixOfMinors.m21 = (m00*m12) - (m02*m10);
-		matrixOfMinors.m22 = (m00*m11) - (m01*m10);
+		matrixOfMinors.m[0*3+0] = (m[1*3+1]*m[2*3+2]) - (m[1*3+2]*m[2*3+1]);
+		matrixOfMinors.m[0*3+1] = (m[1*3+0]*m[2*3+2]) - (m[1*3+2]*m[2*3+0]);
+		matrixOfMinors.m[0*3+2] = (m[1*3+0]*m[2*3+1]) - (m[1*3+1]*m[2*3+0]);
+		matrixOfMinors.m[1*3+0] = (m[0*3+1]*m[2*3+2]) - (m[0*3+2]*m[2*3+1]);
+		matrixOfMinors.m[1*3+1] = (m[0*3+0]*m[2*3+2]) - (m[0*3+2]*m[2*3+0]);
+		matrixOfMinors.m[1*3+2] = (m[0*3+0]*m[2*3+1]) - (m[0*3+1]*m[2*3+0]);
+		matrixOfMinors.m[2*3+0] = (m[0*3+1]*m[1*3+2]) - (m[0*3+2]*m[1*3+1]);
+		matrixOfMinors.m[2*3+1] = (m[0*3+0]*m[1*3+2]) - (m[0*3+2]*m[1*3+0]);
+		matrixOfMinors.m[2*3+2] = (m[0*3+0]*m[1*3+1]) - (m[0*3+1]*m[1*3+0]);
 	}
 	
 	/**
@@ -509,10 +319,10 @@ public class Matrix3f implements IMatrix<Matrix3f>
 	 */
 	private void calcMatrixOfCofactors(Matrix3f matrix)
 	{
-		matrix.m01 = -matrix.m01;
-		matrix.m10 = -matrix.m10;
-		matrix.m21 = -matrix.m21;
-		matrix.m12 = -matrix.m12;
+		matrix.m[0*3+1] = -matrix.m[0*3+1];
+		matrix.m[1*3+0] = -matrix.m[1*3+0];
+		matrix.m[2*3+1] = -matrix.m[2*3+1];
+		matrix.m[1*3+2] = -matrix.m[1*3+2];
 	}
 	
 	/**
@@ -523,49 +333,46 @@ public class Matrix3f implements IMatrix<Matrix3f>
 	 */
 	private void calcAdjointMatrix(Matrix3f matrix)
 	{
-		float temp = matrix.m01;
-		matrix.m01 = matrix.m10;
-		matrix.m10 = temp;
+		float temp = matrix.m[1];
+		matrix.m[1] = matrix.m[3];
+		matrix.m[3] = temp;
 		
-		temp = matrix.m02;
-		matrix.m02 = matrix.m20;
-		matrix.m20 = temp;
+		temp = matrix.m[2];
+		matrix.m[2] = matrix.m[6];
+		matrix.m[6] = temp;
 		
-		temp = matrix.m12;
-		matrix.m12 = matrix.m21;
-		matrix.m21 = temp;
+		temp = matrix.m[5];
+		matrix.m[5] = matrix.m[7];
+		matrix.m[7] = temp;
 	}
 	
 	private void multByDeterminant(Matrix3f matrix)
 	{
-		float det = (this.m00*matrix.m00) // took from matrix of minors' original form
-						- (this.m01*-(matrix.m10))
-						+ (this.m02*matrix.m20);
+		 // took from matrix of minors' original form
+		float det = (this.m[0] *   matrix.m[0])  -
+					(this.m[1] * -(matrix.m[3])) +
+					(this.m[2] *   matrix.m[6]);
 		
 		// Mult by 1/det 
-		matrix.m00 /= det;
-		matrix.m01 /= det;
-		matrix.m02 /= det;
-			matrix.m10 /= det;
-			matrix.m11 /= det;
-			matrix.m12 /= det;
-				matrix.m20 /= det;
-				matrix.m21 /= det;
-				matrix.m22 /= det;
+		for (int i = 0; i < size(); i++)
+		{
+			matrix.m[i] /= det;
+		}
 	}
 	
 	@Override
 	public Matrix3f copy()
 	{
-		return new Matrix3f(m00, m01, m02, 
-					        m10, m11, m12, 
-					        m20, m21, m22);
+		return new Matrix3f(this.m);
 	}
 	
 	@Override
 	public String toString()
 	{
-		return "Matrix3f:\n" + super.toString();
+		return "Matrix3f:\n" +
+				   m[0*3+0] + ", " + m[0*3+1] + ", " + m[0*3+2] + "\n" +
+				   m[1*3+0] + ", " + m[1*3+1] + ", " + m[1*3+2] + "\n" +
+				   m[2*3+0] + ", " + m[2*3+1] + ", " + m[2*3+2] + "\n";
 	}
 
 	@Override

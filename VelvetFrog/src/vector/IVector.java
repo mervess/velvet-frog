@@ -1,6 +1,6 @@
-package storage;
+package vector;
 
-public interface IStorage<T>
+public interface IVector<T>
 {
 	public T add(float scalar);
 	public T sub(float scalar);

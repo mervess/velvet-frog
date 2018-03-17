@@ -1,9 +1,9 @@
 package matrix;
 
-import Jama.Matrix;
+//import Jama.Matrix;
 import vector.VecXf;
 
-public class MatrixXf implements IMatrix<MatrixXf>
+public class MatrixXf extends IMatrix<MatrixXf>
 {
 	protected final float[] data;
 	protected final int rowCount, colCount, numElements;
