@@ -58,6 +58,15 @@ public class Vector4f implements IVector<Vector4f>
 		return new Vector4f(x[0]+otherVector.x[0], x[1]+otherVector.x[1], 
 						    x[2]+otherVector.x[2], x[3]+otherVector.x[3]);
 	}
+	
+	public Vector4f addI(Vector4f otherVector)
+	{
+		x[0] = x[0]+otherVector.x[0]; 
+		x[1] = x[1]+otherVector.x[1]; 
+		x[2] = x[2]+otherVector.x[2]; 
+		x[3] = x[3]+otherVector.x[3];
+		return this;
+	}
 
 	@Override
 	public Vector4f sub(Vector4f otherVector)
@@ -128,13 +137,15 @@ public class Vector4f implements IVector<Vector4f>
 	}
 	
 	/**
-	 * Turn this otherVector into a matrix, then multiply this matrix with its transpose matrix.
+	 * Turn this vector into a matrix, then multiply this matrix with its transpose matrix.
 	 * G = V_T . V
+	 * 
 	 * Which equals to:
 	   [x	x [x	y	z	w]
 	    y
 	    z
 	    w]
+	 *   
 	 * @return Matrix4f
 	 */
 	public Matrix4f getGramianMatrix()
@@ -158,6 +169,11 @@ public class Vector4f implements IVector<Vector4f>
 		return x[index];
 	}
 	
+	public void set(int index, float value)
+	{
+		this.x[index] = value;
+	}
+	
 	@Override
 	public int getSize()
 	{
@@ -168,4 +184,5 @@ public class Vector4f implements IVector<Vector4f>
 	{
 		return new Vector4f(x[0], x[1], x[2], x[3]);
 	}
+
 }

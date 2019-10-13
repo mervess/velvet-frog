@@ -122,6 +122,17 @@ public class Vector6f implements IVector<Vector6f>
 							x[4]+otherVector.x[4], 
 							x[5]+otherVector.x[5]);
 	}
+	
+	public Vector6f addI(Vector6f otherVector)
+	{
+		x[0] += otherVector.x[0]; 
+		x[1] += otherVector.x[1]; 
+		x[2] += otherVector.x[2]; 
+		x[3] += otherVector.x[3]; 
+		x[4] += otherVector.x[4]; 
+		x[5] += otherVector.x[5];
+		return this;
+	}
 
 	@Override
 	public Vector6f sub(Vector6f otherVector)

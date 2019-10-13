@@ -139,6 +139,18 @@ public class Vector7f implements IVector<Vector7f>
 							x[5]+otherVector.x[5], 
 							x[6]+otherVector.x[6]);
 	}
+	
+	public Vector7f addI(Vector7f otherVector)
+	{
+		x[0] += otherVector.x[0]; 
+		x[1] += otherVector.x[1]; 
+		x[2] += otherVector.x[2]; 
+		x[3] += otherVector.x[3]; 
+	  	x[4] += otherVector.x[4]; 
+		x[5] += otherVector.x[5]; 
+		x[6] += otherVector.x[6];
+		return this;
+	}
 
 	@Override
 	public Vector7f sub(Vector7f otherVector)

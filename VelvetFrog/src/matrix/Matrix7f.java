@@ -157,6 +157,15 @@ public class Matrix7f extends IMatrix<Matrix7f>
 		return retMatrix;
 	}
 	
+	public Matrix7f addI(Matrix7f other)
+	{
+		for (int i = 0; i < size(); i++)
+		{
+			this.m[i] += other.m[i];
+		}
+		return this;
+	}
+	
 	public Matrix7f addI(int row, int col, float scalar)
 	{
 		this.m[row*7+col] += scalar;

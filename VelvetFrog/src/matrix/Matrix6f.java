@@ -37,6 +37,7 @@ public class Matrix6f extends IMatrix<Matrix6f>
 	 */
 	public Matrix6f(float scalar)
 	{
+		super();
 		set(scalar);
 	}
 	
@@ -47,6 +48,7 @@ public class Matrix6f extends IMatrix<Matrix6f>
 					float m40, float m41, float m42, float m43, float m44, float m45,
 					float m50, float m51, float m52, float m53, float m54, float m55)
 	{
+		super();
 		this.m[0*6+0] = m00;
 		this.m[0*6+1] = m01;
 		this.m[0*6+2] = m02;
@@ -87,6 +89,7 @@ public class Matrix6f extends IMatrix<Matrix6f>
 	
 	public Matrix6f(float[] array)
 	{
+		super();
 		for (int i = 0; i < size(); i++)
 		{
 			this.m[i] = array[i];
@@ -95,6 +98,7 @@ public class Matrix6f extends IMatrix<Matrix6f>
 	
 	public Matrix6f (double[][] array)
 	{
+		super();
 		for (int i = 0; i < 6; i++)
 		{
 			for (int j = 0; j < 6; j++)
@@ -106,6 +110,7 @@ public class Matrix6f extends IMatrix<Matrix6f>
 	
 	public Matrix6f (float[][] array)
 	{
+		super();
 		for (int i = 0; i < 6; i++)
 		{
 			for (int j = 0; j < 6; j++)
@@ -114,6 +119,9 @@ public class Matrix6f extends IMatrix<Matrix6f>
 			}
 		}
 	}
+	
+	
+	/* end of constructors */
 	
 	@Override
 	public Matrix6f div(float scalar)

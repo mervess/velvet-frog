@@ -2,7 +2,7 @@ package matrix;
 
 public abstract class IMatrix<T>
 {
-	public float[] m;
+	protected float[] m;
 	public abstract T div(float scalar);
 	public abstract T mult(float scalar);
 	public abstract T add(T matrix);
