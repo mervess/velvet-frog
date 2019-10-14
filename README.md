@@ -3,7 +3,7 @@
 ![Velvet Frog](https://images.unsplash.com/photo-1502403421222-2ae1f0a65fe2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1358&q=80)
 *Photo by [David Clode](https://unsplash.com/@davidclode) on [Unsplash](https://unsplash.com/)*
 
-_Velvet Frog_ was an experimental linear algebra library written in pure Java. The project is lastly updated roughly a year ago, and it's unfinished. It was meant to be used for research purposes such as profiling in the compiler level and acceleration via GPUs for computer vision algorithms. Therefore, you will see that it's hard-coded in many functions, and only 2D arrays were used in.
+_Velvet Frog_ was an experimental linear algebra library written in pure Java. The project is lastly updated roughly a year ago, and it's unfinished. It was meant to be used for research purposes such as profiling in the compiler level and acceleration via GPUs for computer vision algorithms. Therefore, you will see that it's hard-coded in many functions, and only 1D arrays were used in.
 
 ## Setup
 It was built on Eclipse-IDE and written in Java-8.
